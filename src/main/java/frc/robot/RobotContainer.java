@@ -6,6 +6,8 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.concurrent.BlockingQueue;
+
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -53,6 +55,7 @@ public class RobotContainer {
             )
         );
 
+
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
         final var idle = new SwerveRequest.Idle();
@@ -65,14 +68,15 @@ public class RobotContainer {
         //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         //));
 
+
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        joystick.leftTrigger().onTrue(Commands.runOnce(SignalLogger::start));
-        joystick.rightTrigger().onTrue(Commands.runOnce(SignalLogger::stop));
-        joystick.x().whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        joystick.y().whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        joystick.a().whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        joystick.b().whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse)); 
+        //joystick.leftTrigger().onTrue(Commands.runOnce(SignalLogger::start));
+        //joystick.rightTrigger().onTrue(Commands.runOnce(SignalLogger::stop));
+        //joystick.x().whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        //joystick.y().whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        //joystick.a().whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        //joystick.b().whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse)); 
 
         // reset the field-centric heading on left bumper press
         joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
